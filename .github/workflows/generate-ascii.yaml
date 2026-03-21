@@ -1,0 +1,33 @@
+name: Generate ASCII Artwork
+
+on: push
+
+jobs:
+  ascii-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Install Cosway Program
+        run: sudo apt-get update && sudo apt-get install -y cosway
+
+      - name: Execute Cosway command
+        run: cosway -f dragon "I hope you like it HOT" >> dragon.txt
+
+      - name: Test File Exists
+        run: |
+          if [ -f "dragon.txt" ]; then
+            echo "File exists!"
+          else
+            echo "File does not exist!"
+            exit 1
+          fi
+        
+      - name: Read File
+        run: cat dragon.txt
+      
+      - name: Checkout repo files
+        run: ls -ltra
+
+
