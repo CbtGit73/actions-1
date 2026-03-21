@@ -15,8 +15,8 @@ jobs:
           ls -ltra
           cat README.md
 
-      - name: Generate ASCII Artwork
-        run: cosway -f dragon "I hope you like it HOT" >> dragon.txt 
+      # - name: Generate ASCII Artwork
+      #   run: cosway -f dragon "I hope you like it HOT" >> dragon.txt 
 
       # - name: List files
       #   run: ls 
