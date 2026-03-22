@@ -14,8 +14,8 @@ jobs:
 
       - name: Executing Shell Script
         run: |
-          chmod +x ascii-scripts.sh
-          ./ascii-scripts.sh
+          chmod +x ascii-script.sh
+          ./ascii-script.sh
 
       # - name: Test File Exists
       #   run: |
