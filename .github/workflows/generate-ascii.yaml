@@ -3,21 +3,51 @@ name: Generate ASCII Artwork
 on: push
 
 jobs:
-  ascii-job:
+  build-job-1:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v6
+      - name: Install cowsay
+        run: sudo apt-get update && sudo apt-get install -y cowsay
 
-      - name: List repo files
-        run: ls -ltra
+      - name: Execute cowsay
+        run: cowsay -f dragon "I hope you like it HOT" >> dragon.txt
 
-      - name: Executing Shell Script
-        run: |
-          chmod +x ascii-script.sh
-          ./ascii-script.sh
+      - name: Sleep for 30 seconds
+        run: sleep 30
+          
 
-      # - name: Test File Exists
+  test-job-2:
+    needs: build-job-1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep for 10 seconds
+        run: sleep 10
+
+      - name: Test file exists
+        run: grep -i "hope" dragon.txt
+
+  deploy-job-3:
+    needs: [test-job-2, build-job-1]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read file content
+        run: cat dragon.txt
+
+      - name: Deploy
+        run: echo "Deploying the ASCII art..."
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          # - name: Test File Exists
       #   run: |
       #     if [ -f "dragon.txt" ]; then
       #       echo "File exists!"
