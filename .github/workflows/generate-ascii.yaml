@@ -12,8 +12,8 @@ jobs:
       - name: Execute cowsay
         run: cowsay -f dragon "I hope you like it HOT" >> dragon.txt
 
-      - name: Upload Dragon artifact
-      - uses: actions/upload-artifact@v6
+      - name: Upload Dragon text file
+        uses: actions/upload-artifact@v6
         with:
           name: dragon-artifact
           path: dragon.txt
@@ -22,8 +22,8 @@ jobs:
     needs: build-job-1
     runs-on: ubuntu-latest
     steps:
-      - name: Download Dragon artifact
-      - uses: actions/download-artifact@v8
+      - name: Download Dragon text file
+        uses: actions/download-artifact@v8
         with:
           name: dragon-artifact
       - name: Display structure of downloaded files
@@ -36,8 +36,8 @@ jobs:
     needs: [test-job-2, build-job-1]
     runs-on: ubuntu-latest
     steps:
-      - name: Download Dragon artifact
-      - uses: actions/download-artifact@v8
+      - name: Download Dragon text file
+        uses: actions/download-artifact@v8
         with:
           name: dragon-artifact
       - name: Display structure of downloaded files
