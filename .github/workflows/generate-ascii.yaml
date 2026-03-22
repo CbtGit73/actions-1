@@ -12,16 +12,22 @@ jobs:
       - name: Execute cowsay
         run: cowsay -f dragon "I hope you like it HOT" >> dragon.txt
 
-      - name: Sleep for 30 seconds
-        run: sleep 30
-          
+      - name: Upload Dragon artifact
+      - uses: actions/upload-artifact@v6
+        with:
+          name: dragon-artifact
+          path: dragon.txt
 
   test-job-2:
     needs: build-job-1
     runs-on: ubuntu-latest
     steps:
-      - name: Sleep for 10 seconds
-        run: sleep 10
+      - name: Download Dragon artifact
+      - uses: actions/download-artifact@v8
+        with:
+          name: dragon-artifact
+      - name: Display structure of downloaded files
+        run: ls -R
 
       - name: Test file exists
         run: grep -i "hope" dragon.txt
@@ -30,6 +36,13 @@ jobs:
     needs: [test-job-2, build-job-1]
     runs-on: ubuntu-latest
     steps:
+      - name: Download Dragon artifact
+      - uses: actions/download-artifact@v8
+        with:
+          name: dragon-artifact
+      - name: Display structure of downloaded files
+        run: ls -R
+
       - name: Read file content
         run: cat dragon.txt
 
